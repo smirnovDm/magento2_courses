@@ -29,6 +29,10 @@ $params = $_SERVER;
 
 //$bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $params);
 switch($_SERVER['HTTP_HOST']) {
+	case 'german.magento2.courses':
+        $mageRunCode = 'german';
+        $mageRunType = 'website';
+    break;
     case 'japan.magento2.courses':
         $mageRunCode = 'japan';
         $mageRunType = 'website';
@@ -38,6 +42,7 @@ switch($_SERVER['HTTP_HOST']) {
         $mageRunType = 'website';
 }
 $params = $_SERVER;
+
 $params[Bootstrap::INIT_PARAM_FILESYSTEM_DIR_PATHS] = array_replace_recursive(
     $params[Bootstrap::INIT_PARAM_FILESYSTEM_DIR_PATHS] ?? [],
     [
@@ -47,6 +52,7 @@ $params[Bootstrap::INIT_PARAM_FILESYSTEM_DIR_PATHS] = array_replace_recursive(
         DirectoryList::UPLOAD => [DirectoryList::URL_PATH => 'media/upload'],
     ]
 );
+
 $params[\Magento\Store\Model\StoreManager::PARAM_RUN_CODE] = $mageRunCode;
 $params[\Magento\Store\Model\StoreManager::PARAM_RUN_TYPE] = $mageRunType;
 $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $params);
