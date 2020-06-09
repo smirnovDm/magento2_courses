@@ -246,6 +246,7 @@ return [
         'SmirnovShipping_TestAttributes' => 1,
         'SmirnovShipping_TestAttributesCategory' => 1,
         'SmirnovShipping_TestAttributesCustomer' => 1,
+        'SmirnovShipping_VoucherModule' => 1,
         'Temando_ShippingRemover' => 1,
         'Vertex_Tax' => 1,
         'Vertex_AddressValidation' => 1,
