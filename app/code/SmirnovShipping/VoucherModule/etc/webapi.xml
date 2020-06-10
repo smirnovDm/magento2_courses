@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/voucher_status/" method="POST">
+        <service class="SmirnovShipping\VoucherModule\Api\VoucherStatusInterface" method="createVoucherStatus"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+    <route url="/V1/voucher_status/:id" method="DELETE">
+        <service class="SmirnovShipping\VoucherModule\Api\VoucherStatusInterface" method="deleteVoucherStatusById"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+    <route url="/V1/voucher_status/getAllVoucherStatuses" method="GET">
+        <service class="SmirnovShipping\VoucherModule\Api\VoucherStatusInterface" method="getAllVoucherStatuses"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/voucher/" method="POST">
+        <service class="SmirnovShipping\VoucherModule\Api\VoucherInterface" method="createVoucher"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+    <route url="/V1/voucher/:id/delete" method="DELETE">
+        <service class="SmirnovShipping\VoucherModule\Api\VoucherInterface" method="deleteVoucherById"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+    <route url="/V1/voucher/getAll" method="GET">
+        <service class="SmirnovShipping\VoucherModule\Api\VoucherInterface" method="getAllVouchers"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/voucher/:id/getAllByCustomer" method="GET">
+        <service class="SmirnovShipping\VoucherModule\Api\VoucherInterface" method="getAllVouchersByCustomerId"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>
