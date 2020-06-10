@@ -10,9 +10,10 @@ namespace SmirnovShipping\VoucherModule\Api;
 interface VoucherStatusInterface
 {
     /**
+     * @param string $voucher_status
      * @return array | string[]
      */
-    public function createVoucherStatus();
+    public function createVoucherStatus($voucher_status);
 
     /**
      * @param int $id

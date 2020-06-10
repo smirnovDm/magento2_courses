@@ -1,9 +1,8 @@
 <?php
 
 
-namespace SmirnovShipping\VoucherModule\model;
+namespace SmirnovShipping\VoucherModule\Model;
 use Magento\Framework\Exception\LocalizedException;
-use mysql_xdevapi\Exception;
 use SmirnovShipping\VoucherModule\Api\VoucherInterface;
 
 
@@ -13,12 +12,12 @@ class VoucherManagement implements VoucherInterface
     protected $jsonHelper;
 
     public function __construct(
-        \SmirnovShipping\VoucherModule\model\VoucherFactory $voucher,
-        \SmirnovShipping\VoucherModule\model\ResourceModel\Voucher $resourceVoucher,
+        \SmirnovShipping\VoucherModule\Model\VoucherFactory $voucher,
+        \SmirnovShipping\VoucherModule\Model\ResourceModel\Voucher $resourceVoucher,
         \Magento\Framework\App\RequestInterface $request,
-        \SmirnovShipping\VoucherModule\model\ResourceModel\Voucher\CollectionFactory $collection,
+        \SmirnovShipping\VoucherModule\Model\ResourceModel\Voucher\CollectionFactory $collection,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
-        \SmirnovShipping\VoucherModule\model\VoucherStatusFactory $voucherStatus,
+        \SmirnovShipping\VoucherModule\Model\VoucherStatusFactory $voucherStatus,
         \Magento\Framework\Serialize\Serializer\Json $json)
     {
         $this->voucher = $voucher;
@@ -33,41 +32,25 @@ class VoucherManagement implements VoucherInterface
     /**
      * @inheritDoc
      */
-    public function createVoucher()
+    public function createVoucher($customer_id, $status_id, $voucher_code)
     {
-
-        $params = $this->request->getParams();
-        if(count($params) !== 3){
-            throw new LocalizedException(__("Invalid input data.You should to add customer_id, status_id, voucher_code"));
-        }
-        if(!array_key_exists('customer_id', $params)){
-            throw new LocalizedException((__("Invalid 'customer_id' key. Please, try again!")));
-        }
-        if(!array_key_exists('status_id', $params)){
-            throw new LocalizedException((__("Invalid 'status_id' key. Please, try again!")));
-        }
-        if(!array_key_exists('voucher_code', $params)){
-            throw new LocalizedException((__("Invalid 'voucher_code' key. Please, try again!")));
-        }
-        foreach ($params as $value){
-            if($value == null){
-                throw new LocalizedException(__("All data is required! Please entry value fields again"));
-            }
-        }
-        $customer = $this->customerFactory->create()->load((int)$params['customer_id']);
-        $voucherStatus = $this->voucherStatus->create()->load((int)$params['status_id']);
+        $customer = $this->customerFactory->create()->load($customer_id);
+        $voucherStatus = $this->voucherStatus->create()->load($status_id);
+        $voucher = $this->voucher->create();
         if(!$customer || !$customer->getId()){
-            throw new LocalizedException(__('Invalid customer id'));
+            throw new LocalizedException(__("Invalid customer id"));
         }
         if(!$voucherStatus || !$voucherStatus->getId()){
-            throw new LocalizedException(__('Invalid voucher_status id'));
+            throw new LocalizedException(__("Invalid status id"));
         }
-        $voucher = $this->voucher->create();
-        $voucher->setCustomerId((int)$params['customer_id']);
-        $voucher->setStatusId((int)$params['status_id']);
-        $voucher->setVoucherCode($params['voucher_code']);
+        if(!$voucherStatus){
+            throw new LocalizedException(__("Invalid voucher_code value"));
+        }
+        $voucher->setCustomerId($customer_id);
+        $voucher->setStatusId($status_id);
+        $voucher->setVoucherCode($voucher_code);
         $voucher->save();
-        return [$params, 'voucher was successfully created!'];
+        return ['voucher was successfully create'];
     }
 
     /**
@@ -88,12 +71,10 @@ class VoucherManagement implements VoucherInterface
      */
     public function getAllVouchers()
     {
-        $j = 0;
         $data = [];
         $voucherCollection = $this->voucherCollection->create();
         foreach ($voucherCollection as $voucher){
-            $j++;
-            $data[] = "$j. ".$voucher->getVoucherCode();
+            $data[] = $voucher->getVoucherCode();
         }
         return $data;
     }

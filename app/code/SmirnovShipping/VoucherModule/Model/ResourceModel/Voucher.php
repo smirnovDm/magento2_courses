@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SmirnovShipping\VoucherModule\model\ResourceModel;
+namespace SmirnovShipping\VoucherModule\Model\ResourceModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 class Voucher extends AbstractDb

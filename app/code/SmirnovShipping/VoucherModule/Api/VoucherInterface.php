@@ -3,15 +3,20 @@
 
 namespace SmirnovShipping\VoucherModule\Api;
 
+
+
 /**
  * @api
  */
 interface VoucherInterface
 {
     /**
+     * @param int $customer_id
+     * @param int $status_id
+     * @param string $voucher_code
      * @return array | string[]
      */
-    public function createVoucher();
+    public function createVoucher($customer_id, $status_id, $voucher_code);
 
     /**
      * @param int $id

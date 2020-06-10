@@ -7,7 +7,7 @@
             <resource ref="Magento_Backend::admin"/>
         </resources>
     </route>
-    <route url="/V1/voucher_status/:id/delete" method="DELETE">
+    <route url="/V1/voucher_status/:id" method="DELETE">
         <service class="SmirnovShipping\VoucherModule\Api\VoucherStatusInterface" method="deleteVoucherStatusById"/>
         <resources>
             <resource ref="Magento_Backend::admin"/>

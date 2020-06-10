@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SmirnovShipping\VoucherModule\model\ResourceModel\VoucherStatus;
+namespace SmirnovShipping\VoucherModule\Model\ResourceModel\VoucherStatus;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 class Collection extends AbstractCollection

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SmirnovShipping\VoucherModule\model;
+namespace SmirnovShipping\VoucherModule\Model;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractModel;
 
